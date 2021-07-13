@@ -5,7 +5,8 @@ import customer.project.model.CustomerResponseDto;
 import org.springframework.stereotype.Component;
 
 @Component
-public class CustomerResponseMapper implements DtoResponseMapper<CustomerResponseDto, Customer> {
+public class CustomerResponseMapper
+        implements DtoResponseMapper<CustomerResponseDto, Customer> {
     @Override
     public CustomerResponseDto toDto(Customer customer) {
         CustomerResponseDto customerResponseDto = new CustomerResponseDto();

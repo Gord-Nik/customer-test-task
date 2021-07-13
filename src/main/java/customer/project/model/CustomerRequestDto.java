@@ -1,8 +1,7 @@
 package customer.project.model;
 
+import customer.project.lib.Phone;
 import lombok.Data;
-import org.springframework.format.annotation.NumberFormat;
-
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Size;
 
@@ -13,6 +12,6 @@ public class CustomerRequestDto {
     @Email
     @Size(min = 2)
     private String email;
-    @NumberFormat(pattern = "\\+?\\d*(\\(\\d{3}\\))?\\d*(-\\d+){0,2}")
+    @Phone
     private String phone;
 }

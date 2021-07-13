@@ -1,5 +1,8 @@
 package customer.project.controller;
 
+import javax.validation.Valid;
+import java.util.List;
+import java.util.stream.Collectors;
 import customer.project.model.Customer;
 import customer.project.model.CustomerRequestDto;
 import customer.project.model.CustomerResponseDto;
@@ -15,18 +18,18 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.validation.Valid;
-import java.util.List;
-import java.util.stream.Collectors;
-
 @RestController
-@RequestMapping("/customers")
+@RequestMapping("/")
 public class CustomerController {
     private final CustomerService customerService;
     private final DtoResponseMapper<CustomerResponseDto, Customer> customerDtoResponseMapper;
     private final DtoRequestMapper<CustomerRequestDto, Customer> customerDtoRequestMapper;
 
-    public CustomerController(CustomerService customerService, DtoResponseMapper<CustomerResponseDto, Customer> customerDtoResponseMapper, DtoRequestMapper<CustomerRequestDto, Customer> customerDtoRequestMapper) {
+    public CustomerController(CustomerService customerService,
+                              DtoResponseMapper<CustomerResponseDto,
+                                      Customer> customerDtoResponseMapper,
+                              DtoRequestMapper<CustomerRequestDto,
+                                      Customer> customerDtoRequestMapper) {
         this.customerService = customerService;
         this.customerDtoResponseMapper = customerDtoResponseMapper;
         this.customerDtoRequestMapper = customerDtoRequestMapper;
@@ -34,7 +37,8 @@ public class CustomerController {
 
     @PostMapping
     public CustomerResponseDto addCustomer(@RequestBody @Valid CustomerRequestDto requestDto) {
-        Customer customer = customerService.create(customerDtoRequestMapper.fromDto(requestDto));
+        Customer customer =
+                customerService.create(customerDtoRequestMapper.fromDto(requestDto));
         return customerDtoResponseMapper.toDto(customer);
     }
 
@@ -52,7 +56,8 @@ public class CustomerController {
     }
 
     @PutMapping("/{id}")
-    public void update(@PathVariable Long id, @RequestBody @Valid CustomerRequestDto customerRequestDto) {
+    public void update(@PathVariable Long id,
+                       @RequestBody @Valid CustomerRequestDto customerRequestDto) {
         Customer customer = customerDtoRequestMapper.fromDto(customerRequestDto);
         customer.setId(id);
         customerService.update(customer);

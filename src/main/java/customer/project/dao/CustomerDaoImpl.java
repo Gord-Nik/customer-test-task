@@ -18,6 +18,7 @@ public class CustomerDaoImpl implements CustomerDao {
     private final SessionFactory sessionFactory;
 
     public CustomerDaoImpl(SessionFactory sessionFactory) {
+
         this.sessionFactory = sessionFactory;
     }
 
@@ -35,7 +36,8 @@ public class CustomerDaoImpl implements CustomerDao {
             if (transaction != null) {
                 transaction.rollback();
             }
-            throw new RuntimeException("Can't insert customer with id: " + customer.getId(), e);
+            throw new RuntimeException("Can't insert customer with id: "
+                    + customer.getId(), e);
         } finally {
             if (session != null) {
                 session.close();
